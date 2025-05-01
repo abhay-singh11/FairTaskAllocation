@@ -23,6 +23,8 @@ class Controller {
     fun parseArgs(args: Array<String>){
         val parser = Cliparser()
         parser.main(args)
+        log.info { "${parser.instanceName} ${parser.instancePath}" }
+        if (Paths.get(parser.instancePath + parser.instanceName).notExists()) { error("Instance file ${parser.instancePath + parser.instanceName}  does not exist.")}
         val outputDir = Paths.get(parser.outputPath)
         if (outputDir.notExists()) { Files.createDirectory(outputDir) }
         outputFile = parser.outputPath + parser.instanceName.split('.').first()+

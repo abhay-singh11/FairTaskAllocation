@@ -11,6 +11,7 @@ import ilog.concert.IloNumVar
 import ilog.cplex.IloCplex
 import kotlin.math.pow
 import io.github.oshai.kotlinlogging.KotlinLogging
+import java.io.PrintStream
 import kotlin.math.round
 import kotlin.properties.Delegates
 
@@ -231,6 +232,13 @@ class Solver(
         cplex.setParam(IloCplex.Param.MIP.Display, 3)
         cplex.setParam(IloCplex.Param.TimeLimit, timeLimitInSeconds)
         cplex.setParam(IloCplex.Param.MIP.Strategy.Search, IloCplex.MIPSearch.Traditional)
+        cplex.setParam(IloCplex.Param.MIP.Tolerances.MIPGap, 0.001)
+//        cplex.setOut(PrintStream(object : java.io.OutputStream() {
+//            override fun write(b: Int) {
+//            }
+//        }
+//        ))
+//        cplex.setParam(IloCplex.Param.Emphasis.MIP, IloCplex.MIPEmphasis.Optimality)
 
         val startTime = cplex.cplexTime
         if (!cplex.solve()){

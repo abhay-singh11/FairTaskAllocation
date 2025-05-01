@@ -6,28 +6,32 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.types.double
+import com.github.ajalt.clikt.parameters.types.int
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.File
 
 private val log = KotlinLogging.logger {}
 class Cliparser : CliktCommand() {
 
-    private val numSource = 20
-    private val numTarget = 500
+    private val numSource: Int by option(
+        "-s",
+        help = "number of sources"
+    ).int().default(5)
 
-    val instanceName: String by option(
+    private val numTarget: Int by option(
+        "-t",
+        help = "number of targets"
+    ).int().default(100)
+
+    private val instanceNameOption: String? by option(
         "-n",
         help = "instance name"
-    ).default("instance_${numSource}_${numTarget}_5.txt")
+    )
 
-    val instancePath: String by option(
+    private val instancePathOption: String? by option(
         "-path",
         help = "instance path"
-    ).default("./data/instances/instance_${numSource}_$numTarget/").validate {
-        require(File(instancePath + instanceName).exists()) {
-            "file does not exist!!!"
-        }
-    }
+    )
 
     val pNorm: String by option(
         "-p",
@@ -54,7 +58,7 @@ class Cliparser : CliktCommand() {
 
 
     val timeLimitInSeconds: Double by option(
-        "-t",
+        "-time",
         help = "time limit in seconds for CPLEX"
     ).double().default(3600.0).validate {
         require(it > 0.0) {
@@ -62,10 +66,19 @@ class Cliparser : CliktCommand() {
         }
     }
 
-    val outputPath: String by option(
+    private val outputPathOption: String? by option(
         "-r",
         help = "path to file with to store result"
-    ).default("./data/results/instance_${numSource}_$numTarget/")
+    )
+
+    val instanceName: String
+        get() = instanceNameOption ?: "instance_${numSource}_${numTarget}_1.txt"
+
+    val instancePath: String
+        get() = instancePathOption ?: "./data/instances/instance_${numSource}_${numTarget}/"
+
+    val outputPath: String
+        get() = outputPathOption ?: "./data/results/instance_${numSource}_${numTarget}/"
 
     override fun run() {
         log.debug { "reading command line arguments..." }

@@ -6,7 +6,7 @@ package fairTA.main
 import fairTA.main.Controller
 
 fun main(args: Array<String>) {
-//    generateInstances(numSources = 20, numTargets = 500)
+//    generateInstances(numSources = 15, numTargets = 500)
     val controller = Controller()
     controller.parseArgs(args)
     controller.populateInstance()
