@@ -104,6 +104,11 @@ class Controller:
                 elif row[0].split(":")[0] == 'pNorm':
                     paretoFrontData[row[0]] = [float(x) for x in row[1:]]
         
+        optimalCost = min([min(data) for data in paretoFrontData.values()])
+        for pNorm, data in paretoFrontData.items():
+            paretoFrontData[pNorm] = [round((x - optimalCost) / optimalCost, 5) for x in data]
+        
+        
         return paretoFrontData, fairnessCoefficient
     
     def getCOVData(self):
@@ -135,7 +140,7 @@ class Controller:
             ax.plot(fairnessCoefficient, data, label=pNorm)
         
         plt.xlabel(r'$1-\varepsilon$', fontsize = 12)
-        plt.ylabel('Cost', fontsize = 12)
+        plt.ylabel('Cost of Fairness (CoF)', fontsize = 12)
         plt.legend(loc='upper right')
         plt.tight_layout()
 

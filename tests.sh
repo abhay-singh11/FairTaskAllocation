@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Define the parameter sets
-fc_values=(0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9)
+#fc_values=(0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9)
+fc_values=(0.99)
 p_values=(2 3 5 10 "inf")
-numSource=10
-numTarget=500
+numSource=5
+numTarget=250
 
 # Loop over instances 1 to 50
 for i in $(seq 1 5); do

@@ -48,7 +48,7 @@ class Controller:
     def run(self):
         self._connection = sqlite3.connect(self.config.db_path)
         self._cursor = self._connection.cursor()
-        table_names = ['instance_5_100', 'instance_10_500']
+        table_names = ['instance_5_100', 'instance_10_500', 'instance_5_250']
         for name in table_names:
             self._write_result_table(name)
 
