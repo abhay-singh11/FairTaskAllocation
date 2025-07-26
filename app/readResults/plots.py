@@ -157,8 +157,8 @@ class Controller:
         for pNorm, data in COVData.items():
             ax.plot(fairnessCoefficient, data, label=pNorm)
         
-        plt.xlabel(r'$1-\varepsilon$', fontsize = 12)
-        plt.ylabel('COV', fontsize = 12)
+        plt.xlabel(r'$\varepsilon$', fontsize = 12)
+        plt.ylabel('Coefficient of Variation (CoV)', fontsize = 12)
         plt.legend(loc='upper right')
         plt.tight_layout()
 
