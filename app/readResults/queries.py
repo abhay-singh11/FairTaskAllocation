@@ -89,7 +89,7 @@ class databaseToCSV():
             csv_writer = csv.writer(csvfile)
             csv_writer.writerow(['instance_name', instance_name])
             pNorms = ["2", "3", "5", "10", "inf"]
-            fairnessCoefficient = [round(x,2) for x in np.arange(0.1,1.0,0.1)]
+            fairnessCoefficient = [round(x,2) for x in np.arange(0.1,1.0,0.1)] + [0.99]
             csv_writer.writerow(["fairnessCoefficient"] + fairnessCoefficient)
             
             for p in pNorms:
@@ -110,13 +110,13 @@ class databaseToCSV():
             csv_writer.writerow(['numSources', f'{numSources}'])
             csv_writer.writerow(['numTargets', f'{numTargets}'])
             pNorms = ["2", "3", "5", "10", "inf"]
-            fairnessCoefficient = [round(x,2) for x in np.arange(0.1,1.0,0.2)]
-            csv_writer.writerow(["pNorm", "fairnessCoefficient"] + [f'comp_time_instance_{i}' for i in range(1, 11)])
+            fairnessCoefficient = [round(x,2) for x in np.arange(0.1,1.0,0.2)] + [0.99]
+            csv_writer.writerow(["pNorm", "fairnessCoefficient"] + [f'comp_time_instance_{i}' for i in range(1, 51)])
 
             for p in pNorms:
                 for fc in fairnessCoefficient:
                     row = [p, fc]
-                    for instance in range(1, 11):
+                    for instance in range(1, 51):
                         instance_name = f'instance_{numSources}_{numTargets}_{instance}.txt'
                         computationTime = self._getComputationTime(numSource=numSource, numTarget=numTarget, instance_name=instance_name, pNorm=p, fc=fc)
                         row.append(round(computationTime, 2))
