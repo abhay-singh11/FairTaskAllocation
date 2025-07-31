@@ -224,7 +224,3 @@ CPLEX and other dependencies have been set up correctly in "build.gradle".
 In case some dependencies need access to config files, the files can be placed
 in "app/src/main/resources". This folder already holds "simplelogger.properties", the config
 file for the "simplelogger" logging utility.
-
-## License
-
-MIT License. See LICENSE file for details.
